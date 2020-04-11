@@ -1,0 +1,111 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="addTab()" ><mat-icon title="Nuevo" class="example-icon" aria-hidden="false">create</mat-icon></button>
+    <mat-icon title="Abrir" class="example-icon" aria-hidden="false" >add</mat-icon>
+    <mat-icon title="Guardar" class="example-icon" aria-hidden="false">save</mat-icon>
+    <mat-icon title="Guardar Como" class="example-icon" aria-hidden="false" >assignment</mat-icon>
+    <span class="example-spacer"></span>
+    <span>Practica 2: Traductor</span>
+    <span class="example-spacer"></span>
+    <mat-icon title="Traducir Archivo" class="example-icon" aria-hidden="false" >restore_page</mat-icon>
+    <mat-icon title="Reporte de Tokens" class="example-icon" aria-hidden="false" >my_library_books</mat-icon>
+    <mat-icon title="Reporte de Errores" class="example-icon" aria-hidden="false" >report_problem</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+<div class="principal">
+  <div class="divuno">
+    <div class = "divunouno">
+      <mat-tab-group [selectedIndex]="selected.value"
+    (selectedIndexChange)="selected.setValue($event)">
+    <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+      <div>
+      <button mat-raised-button
+              class="example-delete-tab-button"
+              [disabled]="tabs.length === 0"
+              (click)="removeTab(selected.value)">
+        Delete Tab
+      </button>
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Codigo C#</mat-label>
+            <textarea matInput placeholder="Escriba su codigo en C#" rows="20" cols="50" ></textarea>
+          </mat-form-field>
+        </form>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+    </div>
+    <div class = "divunodos">
+      <mat-form-field>
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Esciba lo que quiere buscar...">
+      </mat-form-field>
+      <div class="example-container mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" >
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="Nombre" >
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="Tipo">
+          <th mat-header-cell *matHeaderCellDef> Tipo </th>
+          <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Fila">
+          <th mat-header-cell *matHeaderCellDef> Fila </th>
+          <td mat-cell *matCellDef="let element"> {{element.Fila}} </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="Columna" >
+          <th mat-header-cell *matHeaderCellDef> Columna </th>
+          <td mat-cell *matCellDef="let element"> {{element.Columna}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      </div>
+    </div>
+    
+  </div>
+  <div class="divdos">
+    <div class = "divunouno">
+      <mat-form-field class="example-full-width">
+        <mat-label>Codigo Python</mat-label>
+        <textarea matInput placeholder="Traduccion a Python" rows="24" cols="50" ></textarea>
+      </mat-form-field>
+    </div>
+    <div class = "divunodos">
+      <mat-tab-group>
+    <mat-tab label="HTML">
+      <mat-form-field class="example-full-width">
+        <mat-label>Salida HTML</mat-label>
+        <textarea matInput placeholder="Etiquetas de HTML" rows="20" cols="50" ></textarea>
+      </mat-form-field>
+    </mat-tab>
+    <mat-tab label="JSON">
+      <mat-form-field class="example-full-width">
+        <mat-label>Salida JSON</mat-label>
+        <textarea matInput placeholder="Archivo JSON" rows="20" cols="50" ></textarea>
+      </mat-form-field>
+    </mat-tab>
+  </mat-tab-group>
+  </div>
+</div>
+</div>
+
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span class="example-spacer"></span>
+    <span>Hecho Por: Osman Alejandro Pérez López - 201801229</span>
+  </mat-toolbar-row>
+</mat-toolbar>
