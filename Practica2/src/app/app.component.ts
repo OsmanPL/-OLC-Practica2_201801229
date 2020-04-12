@@ -8,25 +8,14 @@ import {MatSort} from '@angular/material/sort';
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {MatTableDataSource} from '@angular/material/table';
+import {Errores} from './Interfaces/Errores';
+import {Variable} from './Interfaces/Variable';
+import {Token} from './Interfaces/Token';
+import {Analizador_Lexico} from './Metodos/Analizador_Lexico';
 
-export interface Errores {
-  Nombre: string;
-  Tipo: string;
-  Columna: number;
-  Fila: number;
-}
-
-const ELEMENT_DATA: Errores[] = [
-  {Nombre: 'a', Tipo: 'Lexico', Columna:0,Fila:0},
-  {Nombre: 'b', Tipo: 'Lexico', Columna:12,Fila:0},
-  {Nombre: 'c', Tipo: 'Lexico', Columna:4,Fila:0},
-  {Nombre: 'r', Tipo: 'Sintactico', Columna:1,Fila:7},
-  {Nombre: 't', Tipo: 'Sintactico', Columna:6,Fila:8},
-  {Nombre: 't', Tipo: 'Sintactico', Columna:6,Fila:8},
-  {Nombre: 'b', Tipo: 'Lexico', Columna:12,Fila:0},
-  {Nombre: 'c', Tipo: 'Lexico', Columna:4,Fila:0},
-  {Nombre: 't', Tipo: 'Sintactico', Columna:6,Fila:8},
+const ELEMENT_DATA: Variable[] = [
 ];
+
 
 @Component({
   selector: 'app-root',
@@ -36,23 +25,37 @@ const ELEMENT_DATA: Errores[] = [
 export class AppComponent {
   title = 'Practica2';
   tabs = [];
+  textos = [];
   numPest : number = 0;
   selected = new FormControl(0);
   ind : number;
+  texto:string="";
+  lexico: Analizador_Lexico = new Analizador_Lexico();
+  tokens: any[]=[];
+  errores: any[]=[];
   addTab() {
     this.tabs.push('Petaña No.' + this.numPest);
+    this.textos.push('');
     this.numPest++;
     this.selected.setValue(this.tabs.length - 1);
     this.ind = this.tabs.length -1;
   }
-  
+  cambio(){
+    this.texto = this.textos[this.selected.value];
+  }
   removeTab(index: number) {
     console.log(index);
     this.tabs.splice(index, 1);
   }
-
-  displayedColumns: string[] = ['Nombre', 'Tipo', 'Columna', 'Fila'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  iniciar_analisis(){
+    this.lexico.analizador(this.texto);
+    this.tokens = <any>this.lexico.tokens;
+    this.errores = this.lexico.errores;
+    console.log(this.tokens);
+    console.log(this.errores);
+  }
+  displayedColumns: string[] = ['Nombre', 'Tipo', 'Fila', 'Columna'];
+  dataSource = new MatTableDataSource(this.tokens);
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -7,7 +7,7 @@
     <span class="example-spacer"></span>
     <span>Practica 2: Traductor</span>
     <span class="example-spacer"></span>
-    <mat-icon title="Traducir Archivo" class="example-icon" aria-hidden="false" >restore_page</mat-icon>
+    <button mat-icon-button (click)="iniciar_analisis()" ><mat-icon title="Traducir Archivo" class="example-icon" aria-hidden="false" >restore_page</mat-icon></button>
     <mat-icon title="Reporte de Tokens" class="example-icon" aria-hidden="false" >my_library_books</mat-icon>
     <mat-icon title="Reporte de Errores" class="example-icon" aria-hidden="false" >report_problem</mat-icon>
   </mat-toolbar-row>
@@ -18,19 +18,19 @@
   <div class="divuno">
     <div class = "divunouno">
       <mat-tab-group [selectedIndex]="selected.value"
-    (selectedIndexChange)="selected.setValue($event)">
+    (selectedIndexChange)="cambio()">
     <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
       <div>
       <button mat-raised-button
               class="example-delete-tab-button"
               [disabled]="tabs.length === 0"
               (click)="removeTab(selected.value)">
-        Delete Tab
+        Eliminar Pestaña
       </button>
         <form class="example-form">
           <mat-form-field class="example-full-width">
             <mat-label>Codigo C#</mat-label>
-            <textarea matInput placeholder="Escriba su codigo en C#" rows="20" cols="50" ></textarea>
+            <textarea matInput placeholder="Escriba su codigo en C#" rows="25" cols="50" name="texto" [(ngModel)]="texto"></textarea>
           </mat-form-field>
         </form>
       </div>
@@ -45,25 +45,25 @@
       <div class="example-container mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" >
       
-        <!-- Position Column -->
+        
         <ng-container matColumnDef="Nombre" >
           <th mat-header-cell *matHeaderCellDef> Nombre </th>
           <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
         </ng-container>
       
-        <!-- Name Column -->
+        
         <ng-container matColumnDef="Tipo">
           <th mat-header-cell *matHeaderCellDef> Tipo </th>
           <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
         </ng-container>
       
-        <!-- Weight Column -->
+       
         <ng-container matColumnDef="Fila">
           <th mat-header-cell *matHeaderCellDef> Fila </th>
           <td mat-cell *matCellDef="let element"> {{element.Fila}} </td>
         </ng-container>
       
-        <!-- Symbol Column -->
+        
         <ng-container matColumnDef="Columna" >
           <th mat-header-cell *matHeaderCellDef> Columna </th>
           <td mat-cell *matCellDef="let element"> {{element.Columna}} </td>
@@ -80,7 +80,7 @@
     <div class = "divunouno">
       <mat-form-field class="example-full-width">
         <mat-label>Codigo Python</mat-label>
-        <textarea matInput placeholder="Traduccion a Python" rows="24" cols="50" ></textarea>
+        <textarea matInput placeholder="Traduccion a Python" rows="31" cols="50" disabled></textarea>
       </mat-form-field>
     </div>
     <div class = "divunodos">
@@ -88,13 +88,13 @@
     <mat-tab label="HTML">
       <mat-form-field class="example-full-width">
         <mat-label>Salida HTML</mat-label>
-        <textarea matInput placeholder="Etiquetas de HTML" rows="20" cols="50" ></textarea>
+        <textarea matInput placeholder="Etiquetas de HTML" rows="27" cols="50" disabled></textarea>
       </mat-form-field>
     </mat-tab>
     <mat-tab label="JSON">
       <mat-form-field class="example-full-width">
         <mat-label>Salida JSON</mat-label>
-        <textarea matInput placeholder="Archivo JSON" rows="20" cols="50" ></textarea>
+        <textarea matInput placeholder="Archivo JSON" rows="27" cols="50" disabled></textarea>
       </mat-form-field>
     </mat-tab>
   </mat-tab-group>
