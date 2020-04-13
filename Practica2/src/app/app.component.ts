@@ -12,6 +12,7 @@ import {Errores} from './Interfaces/Errores';
 import {Variable} from './Interfaces/Variable';
 import {Token} from './Interfaces/Token';
 import {Analizador_Lexico} from './Metodos/Analizador_Lexico';
+import {Analizador_Sintactico} from './Metodos/Analizador_Sintactico';
 
 const ELEMENT_DATA: Variable[] = [
 ];
@@ -30,7 +31,7 @@ export class AppComponent {
   selected = new FormControl(0);
   ind : number;
   texto:string="";
-  lexico: Analizador_Lexico = new Analizador_Lexico();
+  
   tokens: any[]=[];
   errores: any[]=[];
   addTab() {
@@ -48,9 +49,17 @@ export class AppComponent {
     this.tabs.splice(index, 1);
   }
   iniciar_analisis(){
-    this.lexico.analizador(this.texto);
-    this.tokens = <any>this.lexico.tokens;
-    this.errores = this.lexico.errores;
+    let lexico: Analizador_Lexico = new Analizador_Lexico();
+    let sintactico: Analizador_Sintactico = new Analizador_Sintactico();
+    lexico.analizador(this.texto);
+    this.tokens = lexico.tokens;
+    this.errores = lexico.errores;
+    console.log(this.tokens);
+    if(this.errores.length < 1){
+      sintactico.iniciarListas(this.tokens,this.errores);
+      this.tokens = sintactico.tokens;
+      this.errores = sintactico.errores;
+    }
     console.log(this.tokens);
     console.log(this.errores);
   }

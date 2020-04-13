@@ -16,7 +16,7 @@ export class Analizador_Lexico{
     }
 
     addError(id:number, nombre:string, columna:number, fila:number){
-        this.errores.push(new Errores(id,nombre,"Lexico",columna,fila));
+        this.errores.push(new Errores(id,nombre,"Lexico","Caracter Desconocido",columna,fila));
         this.numerror++;
     }
     analizador(texto:string){
@@ -170,8 +170,8 @@ export class Analizador_Lexico{
                     break;
                 case 6:
                     if(c=="\u0027"){
-                        this.addToken(this.numero,c,TipoToken.comilla_simple,columna,fila);
                         this.addToken(this.numero,lexema,TipoToken.caracter,columna,fila);
+                        this.addToken(this.numero,c,TipoToken.comilla_simple,columna,fila);
                         lexema = "";
                         estado = 0;
                     }else{
